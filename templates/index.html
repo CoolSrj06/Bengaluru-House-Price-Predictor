@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>House Price Predictor</title>
+
+  <!-- 🔥 IMPORTANT FOR MOBILE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+    display: flex;
+    justify-content: center;; /* change to center if you want full vertical center */
+    padding-top: 40px; /* 🔥 adds top space */
+    background-color: #f5f7fa;
+    }
+
+    .card {
+      border-radius: 12px;
+    }
+
+    .btn-primary {
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 12px;
+      font-size: 1rem;
+    }
+
+    #result {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    /* 🔥 Mobile optimization */
+    @media (max-width: 576px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      #result {
+        font-size: 1.1rem;
+      }
+
+      .card {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container mt-4 mt-md-5">
+
+  <!-- Title -->
+  <h2 class="text-center">🏠 Bangalore House Price Predictor</h2>
+
+  <!-- Subtitle -->
+  <p class="text-center text-muted mt-2 px-2">
+    Enter the details below to estimate the price of a house in Bengaluru.
+  </p>
+
+  <!-- Card -->
+  <div class="card p-3 p-md-4 mt-4 shadow">
+
+    <div class="row">
+
+      <!-- Location -->
+      <div class="col-12 col-md-6 mb-3">
+        <label class="form-label">Location</label>
+        <select id="location" class="form-control">
+          <option value="">Select Location</option>
+          <option>1st Block Jayanagar</option>
+          <option>1st Phase JP Nagar</option>
+          <option>2nd Phase Judicial Layout</option>
+          <option>2nd Stage Nagarbhavi</option>
+          <option>5th Block Hbr Layout</option>
+          <option>5th Phase JP Nagar</option>
+          <option>6th Phase JP Nagar</option>
+          <option>7th Phase JP Nagar</option>
+          <option>8th Phase JP Nagar</option>
+          <option>9th Phase JP Nagar</option>
+          <option>AECS Layout</option>
+          <option>Abbigere</option>
+          <option>Akshaya Nagar</option>
+          <option>Ambalipura</option>
+          <option>Ambedkar Nagar</option>
+          <option>Amruthahalli</option>
+          <option>Anandapura</option>
+          <option>Ananth Nagar</option>
+          <option>Anekal</option>
+          <option>Anjanapura</option>
+          <option>Arekere</option>
+          <option>Attibele</option>
+          <option>BTM Layout</option>
+          <option>Banashankari</option>
+          <option>Bannerghatta Road</option>
+          <option>Basavangudi</option>
+          <option>Bellandur</option>
+          <option>Brookefield</option>
+          <option>CV Raman Nagar</option>
+          <option>Electronic City</option>
+          <option>Electronic City Phase II</option>
+          <option>HSR Layout</option>
+          <option>Hebbal</option>
+          <option>Hennur</option>
+          <option>Indira Nagar</option>
+          <option>JP Nagar</option>
+          <option>Jakkur</option>
+          <option>KR Puram</option>
+          <option>Kalyan nagar</option>
+          <option>Kanakpura Road</option>
+          <option>Koramangala</option>
+          <option>Kothanur</option>
+          <option>Marathahalli</option>
+          <option>Whitefield</option>
+          <option>Yelahanka</option>
+          <option>Yeshwanthpur</option>
+          <option>other</option>
+        </select>
+      </div>
+
+      <!-- BHK -->
+      <div class="col-12 col-md-6 mb-3">
+        <label class="form-label">BHK</label>
+        <input type="number" id="bhk" class="form-control" placeholder="e.g. 2">
+      </div>
+
+      <!-- Bathrooms -->
+      <div class="col-12 col-md-6 mb-3">
+        <label class="form-label">Bathrooms</label>
+        <input type="number" id="bath" class="form-control" placeholder="e.g. 2">
+      </div>
+
+      <!-- Sqft -->
+      <div class="col-12 col-md-6 mb-3">
+        <label class="form-label">Total Sqft</label>
+        <input type="number" id="sqft" class="form-control" placeholder="300 - 30000">
+      </div>
+
+    </div>
+
+    <!-- Button -->
+    <button onclick="predictPrice()" class="btn btn-primary w-100 mt-2">
+      🔍 Predict Price
+    </button>
+
+    <!-- Result -->
+    <div class="mt-4 text-center">
+      <div id="result"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function predictPrice() {
+
+  const btn = document.querySelector("button");
+  btn.innerText = "Predicting...";
+  btn.disabled = true;
+
+  fetch('/predict', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      location: document.getElementById('location').value,
+      bhk: document.getElementById('bhk').value,
+      bath: document.getElementById('bath').value,
+      sqft: document.getElementById('sqft').value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    const price = data.price * 100000;
+
+    let shortPrice = price >= 10000000
+      ? (price / 10000000).toFixed(2) + " Cr"
+      : (price / 100000).toFixed(2) + " L";
+
+    let fullPrice = new Intl.NumberFormat('en-IN').format(price);
+
+    document.getElementById('result').innerText =
+      `Estimated Price: ₹ ${shortPrice} (${fullPrice})`;
+
+    btn.innerText = "🔍 Predict Price";
+    btn.disabled = false;
+  });
+}
+</script>
+
+</body>
+</html>
