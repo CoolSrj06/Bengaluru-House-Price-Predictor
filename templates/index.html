@@ -3,21 +3,14 @@
 <head>
   <title>House Price Predictor</title>
 
-  <!-- 🔥 IMPORTANT FOR MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
   <style>
-    html, body {
-        height: 100%;
-    }
-
     body {
-    display: flex;
-    justify-content: center;; /* change to center if you want full vertical center */
-    padding-top: 40px; /* 🔥 adds top space */
-    background-color: #f5f7fa;
+      background-color: #f5f7fa;
+      padding-top: 40px;
     }
 
     .card {
@@ -28,7 +21,6 @@
       border-radius: 8px;
       font-weight: 500;
       padding: 12px;
-      font-size: 1rem;
     }
 
     #result {
@@ -37,126 +29,196 @@
       color: #2c3e50;
     }
 
-    /* 🔥 Mobile optimization */
-    @media (max-width: 576px) {
-      h2 {
-        font-size: 1.5rem;
-      }
+    .section {
+      margin-top: 60px;
+    }
 
-      #result {
-        font-size: 1.1rem;
-      }
+    .graph-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
 
-      .card {
-        padding: 20px 15px;
-      }
+    .explanation {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .developer-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .developer-content {
+      max-width: 320px;
+    }
+
+    .developer-content h5 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .developer-content p {
+      margin-bottom: 0.75rem;
+    }
+
+    .developer-content a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    .developer-content a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
 
-<div class="container mt-4 mt-md-5">
+<div class="container">
 
-  <!-- Title -->
+  <!-- TITLE -->
   <h2 class="text-center">🏠 Bangalore House Price Predictor</h2>
 
-  <!-- Subtitle -->
-  <p class="text-center text-muted mt-2 px-2">
+  <p class="text-center text-muted">
     Enter the details below to estimate the price of a house in Bengaluru.
   </p>
 
-  <!-- Card -->
-  <div class="card p-3 p-md-4 mt-4 shadow">
+  <!-- FORM CARD -->
+  <div class="card p-4 shadow mt-4">
 
     <div class="row">
 
-      <!-- Location -->
-      <div class="col-12 col-md-6 mb-3">
-        <label class="form-label">Location</label>
+      <div class="col-md-6 mb-3">
+        <label>Location</label>
         <select id="location" class="form-control">
           <option value="">Select Location</option>
-          <option>1st Block Jayanagar</option>
-          <option>1st Phase JP Nagar</option>
-          <option>2nd Phase Judicial Layout</option>
-          <option>2nd Stage Nagarbhavi</option>
-          <option>5th Block Hbr Layout</option>
-          <option>5th Phase JP Nagar</option>
-          <option>6th Phase JP Nagar</option>
-          <option>7th Phase JP Nagar</option>
-          <option>8th Phase JP Nagar</option>
-          <option>9th Phase JP Nagar</option>
-          <option>AECS Layout</option>
-          <option>Abbigere</option>
-          <option>Akshaya Nagar</option>
-          <option>Ambalipura</option>
-          <option>Ambedkar Nagar</option>
-          <option>Amruthahalli</option>
-          <option>Anandapura</option>
-          <option>Ananth Nagar</option>
-          <option>Anekal</option>
-          <option>Anjanapura</option>
-          <option>Arekere</option>
-          <option>Attibele</option>
-          <option>BTM Layout</option>
-          <option>Banashankari</option>
-          <option>Bannerghatta Road</option>
-          <option>Basavangudi</option>
-          <option>Bellandur</option>
-          <option>Brookefield</option>
-          <option>CV Raman Nagar</option>
-          <option>Electronic City</option>
-          <option>Electronic City Phase II</option>
-          <option>HSR Layout</option>
-          <option>Hebbal</option>
-          <option>Hennur</option>
           <option>Indira Nagar</option>
-          <option>JP Nagar</option>
-          <option>Jakkur</option>
-          <option>KR Puram</option>
-          <option>Kalyan nagar</option>
-          <option>Kanakpura Road</option>
-          <option>Koramangala</option>
-          <option>Kothanur</option>
-          <option>Marathahalli</option>
           <option>Whitefield</option>
-          <option>Yelahanka</option>
-          <option>Yeshwanthpur</option>
+          <option>Electronic City</option>
+          <option>HSR Layout</option>
+          <option>Marathahalli</option>
           <option>other</option>
         </select>
       </div>
 
-      <!-- BHK -->
-      <div class="col-12 col-md-6 mb-3">
-        <label class="form-label">BHK</label>
-        <input type="number" id="bhk" class="form-control" placeholder="e.g. 2">
+      <div class="col-md-6 mb-3">
+        <label>BHK</label>
+        <input type="number" id="bhk" class="form-control">
       </div>
 
-      <!-- Bathrooms -->
-      <div class="col-12 col-md-6 mb-3">
-        <label class="form-label">Bathrooms</label>
-        <input type="number" id="bath" class="form-control" placeholder="e.g. 2">
+      <div class="col-md-6 mb-3">
+        <label>Bathrooms</label>
+        <input type="number" id="bath" class="form-control">
       </div>
 
-      <!-- Sqft -->
-      <div class="col-12 col-md-6 mb-3">
-        <label class="form-label">Total Sqft</label>
-        <input type="number" id="sqft" class="form-control" placeholder="300 - 30000">
+      <div class="col-md-6 mb-3">
+        <label>Total Sqft</label>
+        <input type="number" id="sqft" class="form-control">
       </div>
 
     </div>
 
-    <!-- Button -->
-    <button onclick="predictPrice()" class="btn btn-primary w-100 mt-2">
+    <button onclick="predictPrice()" class="btn btn-primary w-100">
       🔍 Predict Price
     </button>
 
-    <!-- Result -->
-    <div class="mt-4 text-center">
+    <div class="text-center mt-4">
       <div id="result"></div>
     </div>
 
   </div>
+
+  <!-- 🔥 MODEL INSIGHTS SECTION -->
+  <div class="section">
+
+    <h3 class="text-center">📊 Model Insights</h3>
+
+    <p class="text-center text-muted">
+      This model uses Linear Regression to predict housing prices based on input features.
+      <br>
+      <strong>R² Score: 0.83</strong> (explains ~83% variance)
+    </p>
+
+    <div class="row mt-4">
+
+      <!-- Actual vs Predicted -->
+      <div class="col-md-6 mb-4">
+        <h5>Actual vs Predicted</h5>
+        <img src="/static/actual_vs_pred.png" class="graph-img">
+        <p class="explanation">
+          This plot compares actual and predicted prices.
+          Most points lie close to the diagonal line, indicating good predictions.
+          Some deviation exists for higher-priced houses.
+        </p>
+      </div>
+
+      <!-- Residual Plot -->
+      <div class="col-md-6 mb-4">
+        <h5>Residual Plot</h5>
+        <img src="/static/residual_plot.png" class="graph-img">
+        <p class="explanation">
+          Residuals represent prediction errors.
+          Errors increase for higher values, indicating reduced stability
+          for expensive properties.
+        </p>
+      </div>
+
+      <!-- Price Distribution -->
+      <div class="col-md-6 mb-4">
+        <h5>Price Distribution</h5>
+        <img src="/static/price_distribution.png" class="graph-img">
+        <p class="explanation">
+          The dataset is right-skewed, meaning most houses are in lower price ranges.
+          This affects model performance on high-value properties.
+        </p>
+      </div>
+
+      <div class="col-md-6 mb-4">
+
+        <div class="developer-box h-100">
+
+          <div class="developer-content">
+
+          <h5>👨‍💻 Developer</h5>
+
+            <p class="mt-3 mb-1"><strong>Name:</strong> Srijan Maurya</p>
+
+            <p class="mb-2">
+              <strong>Email:</strong><br>
+              <a href="mailto:your_email@example.com">
+                srijanmaurya6602@gmail.com
+              </a>
+            </p>
+
+            <p class="mb-2">
+              <strong>GitHub:</strong><br>
+              <a href="https://github.com/CoolSrj06" target="_blank">
+                github.com/CoolSrj06
+              </a>
+            </p>
+
+            <hr>
+
+            <p style="font-size: 0.9rem; color: #555;">
+              This project demonstrates a aspect of the machine learning knowledge that I have from  —
+              from data preprocessing to model deployment using Flask.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 <script>
